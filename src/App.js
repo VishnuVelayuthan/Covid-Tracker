@@ -1,23 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import "./App.css";
 import InfoBox from "./InfoBox"; 
+import Map from "./Map";
 
 //MaterialUI Dependencies
 import {
   MenuItem,
   FormControl,
   Select, 
-  Card
+  Card,
+  CardContent,
 } from "@material-ui/core";
 
-//Gets list
+//Get Requests URLs list
 const get_url_countries_data = "https://disease.sh/v3/covid-19/countries"
+const get_url_all_countries_data = "https://disease.sh/v3/covid-19/all"
 
 
 function App() {
-
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
+  const [countryInfo, setCountryInfo] = useState()
+
   //useEffect = runs piece of code based on condition
   // ran once when component init 
   // or when state is changed of var
@@ -40,35 +44,43 @@ function App() {
     getCountryData(); 
   }, []) //This function is only called once at the init of the component
 
-  // When I click on the dropdown, do this 
+  // When I click on the dropdown, make call 
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
     setCountry(countryCode);
+
+	const url = countryCode === "worldwide" ? get_url_all_countries_data : 
+		get_url_countries_data
+	
+	await fetch(url)
+		.then(res => res.json())
+		.then(data => )
   }
   return (
     <div className="app"> {/* BEM naming convention component_element*/}
       
-      {/* Title and Dropdown field */}
-      <div className="app_header">
+	  <div className="app_left">
+		  {/* Title and Dropdown field */}
+		  <div className="app_header">
 
-        <h1>COVID-19 Tracker</h1> 
+		<h1>COVID-19 Tracker</h1> 
 
-        <FormControl className="app_dropdown"> {/* This is like a drop down */}
-          <Select variant="outlined" 
-                  value={country}
-                  onChange={onCountryChange}> 
-            <MenuItem value="worldwide">Worldwide</MenuItem>
-            {/* This loops through all the countries in state countries */}
-            {countries.map(country => 
-                <MenuItem value={country.value}>{country.name}</MenuItem>
-            )}
-          </Select>
-        </FormControl>
-        
-      </div>
+		<FormControl className="app_dropdown"> {/* This is like a drop down */}
+		<Select variant="outlined" 
+				value={country}
+				onChange={onCountryChange}> 
+			<MenuItem value="worldwide">Worldwide</MenuItem>
+			{/* This loops through all the countries in state countries */}
+			{countries.map(country => 
+				<MenuItem value={country.value}>{country.name}</MenuItem>
+			)}
+		</Select>
+		</FormControl>
 
-      {/* Infoboxes */}
-      <div className="app_stats">
+		</div>
+
+		{/* Infoboxes */}
+		<div className="app_stats">
 			{/* Infobox for Covid Cases*/}
 			<InfoBox title="Coronavirus Cases" cases={123} total={2000}/>
 			
@@ -77,15 +89,23 @@ function App() {
 			
 			{/* Infobox for Covid Cases*/}
 			<InfoBox title="Deaths" cases={789} total={4000}/>
-      </div>
+		</div>
+
+		{/* Map */}
+		<Map />
+	  </div>
       
-      {/* Infobox */}
-      {/* Infobox */}
+      <Card className="app_right">
+			<CardContent>
+				<h3>Live Cases by Country</h3>
+				{/* Table */}
+				<h3>Worldwide New Cases</h3>
+				{/* Graph */} 
+			</CardContent>	  		
+	  </Card>
 
-      {/* Table */}
-      {/* Graph */} 
 
-      {/* Map */}
+      
 
     </div>
   );
