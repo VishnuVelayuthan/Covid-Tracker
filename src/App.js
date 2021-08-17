@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import "./App.css";
+import InfoBox from "./InfoBox"; 
 
 //MaterialUI Dependencies
 import {
@@ -39,17 +40,23 @@ function App() {
     getCountryData(); 
   }, []) //This function is only called once at the init of the component
 
-
+  // When I click on the dropdown, do this 
+  const onCountryChange = async (event) => {
+    const countryCode = event.target.value;
+    setCountry(countryCode);
+  }
   return (
     <div className="app"> {/* BEM naming convention component_element*/}
       
-      {/* Header */}
+      {/* Title and Dropdown field */}
       <div className="app_header">
 
         <h1>COVID-19 Tracker</h1> 
 
         <FormControl className="app_dropdown"> {/* This is like a drop down */}
-          <Select variant="outlined" value={country}> 
+          <Select variant="outlined" 
+                  value={country}
+                  onChange={onCountryChange}> 
             <MenuItem value="worldwide">Worldwide</MenuItem>
             {/* This loops through all the countries in state countries */}
             {countries.map(country => 
@@ -60,12 +67,18 @@ function App() {
         
       </div>
 
+      {/* Infoboxes */}
+      <div className="app_stats">
+			{/* Infobox for Covid Cases*/}
+			<InfoBox title="Coronavirus Cases" cases={123} total={2000}/>
+			
+			{/* Infobox for Covid Cases*/}
+			<InfoBox title="Recovered" cases={456} total={3000}/>
+			
+			{/* Infobox for Covid Cases*/}
+			<InfoBox title="Deaths" cases={789} total={4000}/>
+      </div>
       
-      
-
-      {/* Title and Dropdown field */}
-
-      {/* Infobox */}
       {/* Infobox */}
       {/* Infobox */}
 
