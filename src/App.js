@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import "./App.css";
+import { sortData } from './util';
+
+// Components 
 import InfoBox from "./InfoBox"; 
 import Map from "./Map";
+import Table from "./Table"; 
 
 //MaterialUI Dependencies
 import {
@@ -21,6 +25,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
+  const [tableData, setTableData] = useState([]); 
 
   //useEffect = runs piece of code based on condition
   // ran once when component init 
@@ -50,7 +55,11 @@ function App() {
               value: country.countryInfo.iso2 // UK, IN, GER
             }
           )); 
+
+		  const sortedData = sortData(data); 
+		  
           setCountries(countries); //Setting state to this country
+		  setTableData(sortedData); //Getting the data for the table componenet
         })
     } 
     getCountryData(); 
@@ -113,7 +122,10 @@ function App() {
       <Card className="app_right">
 			<CardContent>
 				<h3>Live Cases by Country</h3>
+
 				{/* Table */}
+				<Table countries={tableData} />
+
 				<h3>Worldwide New Cases</h3>
 				{/* Graph */} 
 			</CardContent>	  		
