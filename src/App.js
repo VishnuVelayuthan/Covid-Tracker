@@ -26,6 +26,18 @@ function App() {
   // ran once when component init 
   // or when state is changed of var
   useEffect(() => {
+	  //For initial call to get worldwide data
+	const getCountryInfo = () => {
+		 fetch(get_url_all_countries_data)
+			.then(res => res.json())
+			.then(data => {
+				setCountryInfo(data);
+			});
+	}
+	getCountryInfo(); 
+  }, [])
+
+  useEffect(() => {
     //Define async function
     // Async function is basically waiting for promise to be fullfilled
     const getCountryData = async() => { // fetch is built in JS func for get reqs
@@ -41,17 +53,7 @@ function App() {
           setCountries(countries); //Setting state to this country
         })
     } 
-
-	const getCountryInfo = async () => {
-		await fetch(get_url_all_countries_data)
-			.then(res => res.json())
-			.then(data => {
-				setCountryInfo(data);
-			});
-	}
-
     getCountryData(); 
-	getCountryInfo(); 
   }, []) //This function is only called once at the init of the component
 
   // When I click on the dropdown, make call 
@@ -68,8 +70,6 @@ function App() {
 			setCountryInfo(data); // get JSON value 
 		})
   }
-
-  console.log(countryInfo);
 
   return (
     <div className="app"> {/* BEM naming convention component_element*/}
