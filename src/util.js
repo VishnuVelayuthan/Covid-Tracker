@@ -30,6 +30,10 @@ export const sortData = (data) => {
     return sortedData; 
 }
 
+export const prettyPrintStat = (stat) => (
+    stat? `${numeral(stat).format("0,0a")}` : "0"
+);
+
 // To draw the circles on the map
 export const showDataOnMap = (data, casesType="cases") => (
     data.map(country => (
