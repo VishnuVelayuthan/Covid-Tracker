@@ -4,9 +4,9 @@ import "./InfoBox.css";
 import {Card, CardContent, Typography} from "@material-ui/core";
 import {prettyPrintStat} from "./util";
 
-function InfoBox({ title, cases, total }) {
+function InfoBox({ onClick, title, cases, total }) {
     return (
-        <Card className="infoBox">
+        <Card onClick={onClick} className="infoBox">
             <CardContent>
                 {/* Title */}
                 <Typography className="infoBox_title" color="textSecondary">

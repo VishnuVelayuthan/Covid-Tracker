@@ -64,7 +64,6 @@ const buildChartData = (data, casesType="cases") => {
         }
         lastDataPoint = data[casesType][date];
     };
-
     return chartData; 
 }
 
@@ -78,7 +77,12 @@ function LineGraph({casesType="cases"}) {
             .then(res => res.json())
             .then(data => {
                 const chartData = buildChartData(data, casesType);
+
+                if (chartData.length === 101){
+                    chartData[100] = chartData[99];
+                }
                 setData(chartData); 
+                
             });
         }
         
@@ -86,6 +90,7 @@ function LineGraph({casesType="cases"}) {
     }, [casesType]);
     // console.log("hellO");
     // console.log(data);
+    console.log(data); 
     return (
         <div>
             {/* If data exists do this */}
