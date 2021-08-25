@@ -78,11 +78,13 @@ function LineGraph({casesType="cases", ...props}) {
             .then(data => {
                 const chartData = buildChartData(data, casesType);
 
-                if (chartData.length === 101){
-                    chartData[100] = chartData[99];
+                // Bug on the disease.sh api 
+                if (casesType === "recovered"){
+                    chartData.pop();
+                    chartData.pop(); 
+                    chartData.pop(); 
                 }
                 setData(chartData); 
-                
             });
         }
         
@@ -90,7 +92,7 @@ function LineGraph({casesType="cases", ...props}) {
     }, [casesType]);
     // console.log("hellO");
     // console.log(data);
-    console.log(data); 
+
     return (
         <div className={props.classes}>
             {/* If data exists do this */}
