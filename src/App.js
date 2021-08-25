@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import "./App.css";
 import { sortData } from './util';
 
 // Components 
@@ -7,6 +6,10 @@ import InfoBox from "./InfoBox";
 import Map from "./Map";
 import Table from "./Table"; 
 import LineGraph from "./LineGraph"; 
+
+//Importing css
+import "./App.css";
+import "leaflet/dist/leaflet.css";
 
 //MaterialUI Dependencies
 import {
@@ -27,6 +30,8 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]); 
+  const [mapCenter, setMapCenter] = useState({lat: 34.80746, lng: -40.4796}); //Center of pacific ocean
+  const [mapZoom, setMapZoom] = useState(3); 
 
   //useEffect = runs piece of code based on condition
   // ran once when component init 
@@ -117,7 +122,7 @@ function App() {
 		</div>
 
 		{/* Map */}
-		<Map />
+		<Map center={mapCenter} zoom={mapZoom}/>
 	  </div>
       
       <Card className="app_right">
