@@ -4,8 +4,6 @@ import numeral from "numeral";
 
 const line_data_url = "https://disease.sh/v3/covid-19/historical/all?lastdays=120"
 
-console.log(defaults);
-
 defaults.backgroundColor = "rgba(204, 16, 52, 0.5)";
 defaults.plugins.legend.display = false; 
 
@@ -88,7 +86,6 @@ function LineGraph({casesType="cases"}) {
     }, [casesType]);
     // console.log("hellO");
     // console.log(data);
-    console.log(options); 
     return (
         <div>
             {/* If data exists do this */}

@@ -83,9 +83,13 @@ function App() {
 		.then(data => {
 			setCountry(countryCode)
 			setCountryInfo(data); // get JSON value 
+
+			// Recenter map 
+			setMapCenter({lat: data.countryInfo.lat, lng: data.countryInfo.long});
+			console.log(mapCenter); 
+			setMapZoom(4); 
 		})
   }
-
   return (
     <div className="app"> {/* BEM naming convention component_element*/}
       
