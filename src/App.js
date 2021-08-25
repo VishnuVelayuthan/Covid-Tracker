@@ -32,7 +32,7 @@ function App() {
   const [tableData, setTableData] = useState([]); 
   const [mapCenter, setMapCenter] = useState({lat: 34.80746, lng: -40.4796}); //Center of pacific ocean
   const [mapZoom, setMapZoom] = useState(3); 
-
+  const [mapCountries, setMapCountries] = useState([])
   //useEffect = runs piece of code based on condition
   // ran once when component init 
   // or when state is changed of var
@@ -66,6 +66,7 @@ function App() {
 		  
           setCountries(countries); //Setting state to this country
 		  setTableData(sortedData); //Getting the data for the table componenet
+		  setMapCountries(data); 
         })
     } 
     getCountryData(); 
@@ -86,7 +87,6 @@ function App() {
 
 			// Recenter map 
 			setMapCenter({lat: data.countryInfo.lat, lng: data.countryInfo.long});
-			console.log(mapCenter); 
 			setMapZoom(4); 
 		})
   }
@@ -126,7 +126,11 @@ function App() {
 		</div>
 
 		{/* Map */}
-		<Map center={mapCenter} zoom={mapZoom}/>
+		<Map 
+			center={mapCenter} 
+			zoom={mapZoom}
+			countries={mapCountries}
+		/>
 	  </div>
       
       <Card className="app_right">
