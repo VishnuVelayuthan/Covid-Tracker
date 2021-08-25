@@ -86,9 +86,18 @@ function App() {
 			setCountryInfo(data); // get JSON value 
 
 			// Recenter map 
-			setMapCenter({lat: data.countryInfo.lat, lng: data.countryInfo.long});
-			setMapZoom(4); 
-		})
+			if (countryCode === "worldwide") {
+				setMapCenter({lat: 34.80746, lng: -40.4796});
+				setMapZoom(3); 
+			}
+			else {
+				setMapCenter({lat: data.countryInfo.lat, lng: data.countryInfo.long});
+				setMapZoom(4); 
+			}
+
+			
+		});
+	
   }
   return (
     <div className="app"> {/* BEM naming convention component_element*/}
