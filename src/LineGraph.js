@@ -67,7 +67,7 @@ const buildChartData = (data, casesType="cases") => {
     return chartData; 
 }
 
-function LineGraph({casesType="cases"}) {
+function LineGraph({casesType="cases", ...props}) {
     const [data, setData] = useState({});
 
     // useEffect to get data on the prev Covid cases
@@ -92,7 +92,7 @@ function LineGraph({casesType="cases"}) {
     // console.log(data);
     console.log(data); 
     return (
-        <div>
+        <div className={props.classes}>
             {/* If data exists do this */}
             {data?.length > 0 && (
                 <Line 
